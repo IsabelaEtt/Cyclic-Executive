@@ -7,17 +7,11 @@ import java.util.logging.Logger;
 
 
 public class FixedCyclicExecutive {
-    private int sum = 0;
-    private int loop = 0;
     private boolean keepRunning = false;
     private long cycleTime = 40;
     private long timeUsedInCycle = 0;
     
     public FixedCyclicExecutive () {}
-    
-    public FixedCyclicExecutive (int cycleTime) {
-        this.cycleTime = cycleTime;
-    }
     
     public void stop () {
         this.keepRunning = false;
@@ -31,9 +25,11 @@ public class FixedCyclicExecutive {
             
             long startTime = System.currentTimeMillis();
 
-            this.updateLoop();
-            this.updateSum();
-            this.printLoopSum();
+            this.task1();
+            this.task2();
+            this.task3();
+            this.task4();
+            this.task5();
             
             this.timeUsedInCycle = System.currentTimeMillis() - startTime;
         }
@@ -58,30 +54,38 @@ public class FixedCyclicExecutive {
         }
     }
    
-    private void updateLoop () {
-        this.loop += 1;
-        
-        try { new Thread().sleep(5); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void updateSum () {
-        this.sum += this.loop;
-        
-        try { new Thread().sleep(5); //Simulate time spent with tasks
+    private void task1 () {
+        try { new Thread().sleep(8); //Simulate time spent with tasks
         } catch(InterruptedException ex) {
             Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    private void printLoopSum () {
-        System.out.println("Fixes Cyclic Executive - Loop " + this.loop + " - Sum " + this.sum);
-        
-        try { new Thread().sleep(5); //Simulate time spent with tasks
+    private void task2 () {
+        try { new Thread().sleep(6); //Simulate time spent with tasks
         } catch(InterruptedException ex) {
             Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void task3 () {
+        try { new Thread().sleep(3); //Simulate time spent with tasks
+        } catch(InterruptedException ex) {
+            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      
+    private void task4 () {
+        try { new Thread().sleep(2); //Simulate time spent with tasks
+        } catch(InterruptedException ex) {
+            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void task5 () {
+        try { new Thread().sleep(1); //Simulate time spent with tasks
+        } catch(InterruptedException ex) {
+            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 }

@@ -4,8 +4,10 @@ package executivo.cíclico;
 
 public class Main {
     public static void main(String[] args) {
-        FixedCyclicExecutive fce = new FixedCyclicExecutive(4000);
-        
+        FixedCyclicExecutive fce = new FixedCyclicExecutive();
         fce.run();
+        
+        // VariableCyclicExecutive vce = new VariableCyclicExecutive();
+        // vce.run();
     }
 }
