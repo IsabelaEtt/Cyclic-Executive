@@ -4,15 +4,8 @@ package executivo.cíclico;
 
 public class Main {
     public static void main(String[] args) {
-        FixedCyclicExecutive fce = new FixedCyclicExecutive();
+        FixedCyclicExecutive fce = new FixedCyclicExecutive(4000);
         
         fce.run();
-
-        try { new Thread().sleep(4000);
-        } catch(InterruptedException ex) {
-            System.out.println("Erro");
-        }
-        
-        fce.stop();
     }
 }
