@@ -2,36 +2,27 @@ package executivo.cíclico;
 
 // @author Isabela Canelas Ett - RA00303107
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class FixedCyclicExecutive {
-    private boolean keepRunning = false;
-    private long cycleTime = 40;
+    private final long cycleTime = 40;
     private long timeUsedInCycle = 0;
+    private List<Task> tasks = new ArrayList<>();
     
     public FixedCyclicExecutive () {}
     
-    public void stop () {
-        this.keepRunning = false;
-    }
-    
     public void run () {
-        this.keepRunning = true;
-        
-        while (this.keepRunning) {
+        while (true) {
             this.waitNextCycle();
-            
-            long startTime = System.currentTimeMillis();
 
-            this.task1();
-            this.task2();
-            this.task3();
-            this.task4();
-            this.task5();
-            
-            this.timeUsedInCycle = System.currentTimeMillis() - startTime;
+            for (Task task: tasks) {
+                task.run();
+                
+                this.timeUsedInCycle += task.getDuration();
+            }
         }
     }
     
@@ -54,38 +45,7 @@ public class FixedCyclicExecutive {
         }
     }
    
-    private void task1 () {
-        try { new Thread().sleep(8); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void addTask (Task newTask) {
+       this.tasks.add(newTask);
     }
-    
-    private void task2 () {
-        try { new Thread().sleep(6); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void task3 () {
-        try { new Thread().sleep(3); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-      
-    private void task4 () {
-        try { new Thread().sleep(2); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void task5 () {
-        try { new Thread().sleep(1); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
 }

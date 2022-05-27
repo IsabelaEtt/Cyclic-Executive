@@ -2,72 +2,29 @@ package executivo.cíclico;
 
 // @author Isabela Canelas Ett - RA00303107
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class VariableCyclicExecutive {
-    private int loop = 0;
-    private boolean keepRunning = false;
-    private long minorCycleTime = 20;
+    private final long minorCycleTime = 20;
     private long timeUsedInMinorCycle = 0;
+    private List<List<Task>> minorCycles = new ArrayList<>();
     
     public VariableCyclicExecutive () {}
     
-    public void stop () {
-        this.keepRunning = false;
-    }
-    
     public void run () {
-        this.keepRunning = true;
-        
-        while (this.keepRunning) {
-            // First minor cycle
-            this.waitNextMinorCycle();
-            
-            long startTime = System.currentTimeMillis();
+        while (true) {
+            for (List<Task> minorCycleTasks: minorCycles) {
+                this.waitNextMinorCycle();
+                
+                for (Task task: minorCycleTasks) {
+                    task.run();
 
-            this.task1();
-            this.task2();
-            this.task3();
-            
-            this.timeUsedInMinorCycle = this.timeUsedInMinorCycle + (System.currentTimeMillis() - startTime);
-            
-            
-            // Second minor cycle
-            this.waitNextMinorCycle();
-            
-            startTime = System.currentTimeMillis();
-
-            this.task1();
-            this.task2();
-            this.task4();
-            this.task5();
-            
-            this.timeUsedInMinorCycle = this.timeUsedInMinorCycle + (System.currentTimeMillis() - startTime);
-            
-            
-            // Third minor cycle
-            this.waitNextMinorCycle();
-            
-            startTime = System.currentTimeMillis();
-
-            this.task1();
-            this.task2();
-            this.task3();
-            
-            this.timeUsedInMinorCycle = this.timeUsedInMinorCycle + (System.currentTimeMillis() - startTime);
-            
-            
-            // Fourth minor cycle
-            this.waitNextMinorCycle();
-            
-            startTime = System.currentTimeMillis();
-
-            this.task1();
-            this.task2();
-            this.task4();
-            
-            this.timeUsedInMinorCycle = this.timeUsedInMinorCycle + (System.currentTimeMillis() - startTime);
+                    this.timeUsedInMinorCycle += task.getDuration();
+                }
+            }
         }
     }
     
@@ -90,39 +47,8 @@ public class VariableCyclicExecutive {
             Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
-    private void task1 () {
-        try { new Thread().sleep(8); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
-    private void task2 () {
-        try { new Thread().sleep(6); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void addMinorCycle (List<Task> newMinorCycle) {
+        this.minorCycles.add(newMinorCycle);
     }
-    
-    private void task3 () {
-        try { new Thread().sleep(3); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-      
-    private void task4 () {
-        try { new Thread().sleep(2); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void task5 () {
-        try { new Thread().sleep(1); //Simulate time spent with tasks
-        } catch(InterruptedException ex) {
-            Logger.getLogger(FixedCyclicExecutive.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
 }
