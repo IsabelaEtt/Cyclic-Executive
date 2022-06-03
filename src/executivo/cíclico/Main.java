@@ -23,11 +23,11 @@ public class Main {
     
     static void runVariableCyclicExecutive () {
         VariableCyclicExecutive vce = new VariableCyclicExecutive();
-        Task task1 = new Task("Task 1", 4, 4);
-        Task task2 = new Task("Task 2", 3, 3);
-        Task task3 = new Task("Task 3", 1, 2);
-        Task task4 = new Task("Task 4", 2, 1);
-        Task task5 = new Task("Task 5", 1, 1);
+        Task task1 = new Task("Task 1", 4, 8);
+        Task task2 = new Task("Task 2", 3, 6);
+        Task task3 = new Task("Task 3", 1, 3);
+        Task task4 = new Task("Task 4", 2, 3);
+        Task task5 = new Task("Task 5", 1, 2);
         
         List<Task> minorCycle1 = new ArrayList<>();
         minorCycle1.add(task1);
