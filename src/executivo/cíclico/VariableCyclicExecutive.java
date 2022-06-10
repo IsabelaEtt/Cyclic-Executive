@@ -11,11 +11,14 @@ public class VariableCyclicExecutive {
     private final long minorCycleTime = 20;
     private long timeUsedInMinorCycle = 0;
     private List<List<Task>> minorCycles = new ArrayList<>();
+    private boolean running = true;
     
     public VariableCyclicExecutive () {}
     
     public void run () {
-        while (true) {
+        this.running = true;
+        
+        while (running) {
             for (List<Task> minorCycleTasks: minorCycles) {
                 this.waitNextMinorCycle();
                 
@@ -50,5 +53,17 @@ public class VariableCyclicExecutive {
     
     public void addMinorCycle (List<Task> newMinorCycle) {
         this.minorCycles.add(newMinorCycle);
+    }
+    
+    public void stopCycle () {
+        this.running = false;
+    }
+    
+    public boolean hasTasks () {
+        return this.minorCycles.size() > 0;
+    }
+    
+    public void removeAllTasks() {
+        this.minorCycles = new ArrayList<>();
     }
 }

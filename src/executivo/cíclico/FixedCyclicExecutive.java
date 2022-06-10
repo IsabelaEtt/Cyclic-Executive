@@ -11,11 +11,14 @@ public class FixedCyclicExecutive {
     private final long cycleTime = 40;
     private long timeUsedInCycle = 0;
     private List<Task> tasks = new ArrayList<>();
+    private boolean running = true;
     
     public FixedCyclicExecutive () {}
     
     public void run () {
-        while (true) {
+        this.running = true;
+        
+        while (running) {
             this.waitNextCycle();
 
             for (Task task: tasks) {
@@ -47,5 +50,17 @@ public class FixedCyclicExecutive {
    
     public void addTask (Task newTask) {
        this.tasks.add(newTask);
+    }
+    
+    public void stopCycle () {
+        this.running = false;
+    }
+    
+    public boolean hasTasks () {
+        return this.tasks.size() > 0;
+    }
+    
+    public void removeAllTasks() {
+        this.tasks = new ArrayList<>();
     }
 }
